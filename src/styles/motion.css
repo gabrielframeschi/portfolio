@@ -10,9 +10,12 @@
   initial-value: 0%;
 }
 
+/*
+ * Transform only: the blocks stay visible from the first frame, because
+ * starting from opacity 0 delays when browsers record the first paint.
+ */
 @keyframes enter {
   from {
-    opacity: 0;
     transform: translateY(var(--distance-enter));
   }
 }
