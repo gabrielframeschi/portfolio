@@ -29,7 +29,7 @@ const fontVariables = [geist.variable, robotoSerif.variable, geistMono.variable]
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: site.name,
+  title: { default: site.name, template: `%s · ${site.name}` },
   description: site.role,
   alternates: { canonical: "/" },
   openGraph: {

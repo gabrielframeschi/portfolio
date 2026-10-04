@@ -35,4 +35,8 @@ export const site = {
     updated: "updated",
     themeToggle: "Dark theme",
   },
+  notFound: {
+    title: "Page not found",
+    backHome: "Back to home",
+  },
 };
