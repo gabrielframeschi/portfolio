@@ -35,10 +35,10 @@
   /* 2. Theme change: every theme color animates at once, so nothing flashes. */
   :root {
     transition:
-      --theme-bg var(--duration-theme) var(--ease-out),
-      --theme-fg var(--duration-theme) var(--ease-out),
-      --theme-fg-muted var(--duration-theme) var(--ease-out),
-      --theme-accent var(--duration-theme) var(--ease-out);
+      --theme-bg var(--duration-theme) var(--ease-color),
+      --theme-fg var(--duration-theme) var(--ease-color),
+      --theme-fg-muted var(--duration-theme) var(--ease-color),
+      --theme-accent var(--duration-theme) var(--ease-color);
   }
 
   /*
@@ -47,10 +47,10 @@
    * keeps hovered text in sync while the theme colors animate.
    */
   .hover-strong {
-    transition: --hover-mix var(--duration-hover) var(--ease-out);
+    transition: --hover-mix var(--duration-hover) var(--ease-color);
   }
 
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .hover-strong:hover {
       --hover-mix: 100%;
     }

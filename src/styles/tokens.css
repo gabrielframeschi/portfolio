@@ -126,13 +126,14 @@
 
 /* Motion. Fast and natural: if a movement is consciously noticed, it is too much. */
 :root {
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out: ease-in-out;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1); /* elements entering */
+  --ease-in-out: ease-in-out; /* the icon swap */
+  --ease-color: ease; /* hover and theme colors */
 
   --duration-hover: 150ms;
   --duration-theme: 200ms;
   --duration-icon: 250ms;
-  --duration-enter: 350ms;
+  --duration-enter: 300ms;
   --stagger-enter: 40ms;
   --distance-enter: 6px;
 
