@@ -33,5 +33,6 @@ export const site = {
   ] satisfies Link[],
   labels: {
     updated: "updated",
+    themeToggle: "Dark theme",
   },
 };

@@ -23,3 +23,11 @@
     color: var(--theme-bg);
   }
 }
+
+/*
+ * The theme toggle needs JavaScript. Without the head script there is no
+ * data-theme, so hide it. Unlayered on purpose, to win over utilities.
+ */
+:root:not([data-theme]) .theme-toggle {
+  display: none;
+}

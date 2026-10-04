@@ -3,11 +3,7 @@
  * approval, and take every value from tokens.css.
  */
 
-/*
- * Hover: links and project items go from gray to the strong color. Nothing
- * moves. Mixing the theme colors, instead of transitioning `color`, keeps
- * hovered text in sync while the theme colors animate.
- */
+/* Drives the hover color mix in section 3. */
 @property --hover-mix {
   syntax: "<percentage>";
   inherits: true;
@@ -15,6 +11,41 @@
 }
 
 @layer components {
+  /* 1. Theme toggle: the sun and the moon swap places in the same slot. */
+  .icon-swap {
+    display: inline-grid;
+  }
+
+  .icon-swap > * {
+    grid-area: 1 / 1;
+    transition:
+      opacity var(--duration-icon) var(--ease-in-out),
+      filter var(--duration-icon) var(--ease-in-out),
+      transform var(--duration-icon) var(--ease-in-out);
+    will-change: opacity, filter, transform;
+  }
+
+  :root[data-theme="light"] .icon-swap > [data-icon="moon"],
+  :root[data-theme="dark"] .icon-swap > [data-icon="sun"] {
+    opacity: 0;
+    filter: blur(var(--icon-swap-blur));
+    transform: scale(var(--icon-swap-scale));
+  }
+
+  /* 2. Theme change: every theme color animates at once, so nothing flashes. */
+  :root {
+    transition:
+      --theme-bg var(--duration-theme) var(--ease-out),
+      --theme-fg var(--duration-theme) var(--ease-out),
+      --theme-fg-muted var(--duration-theme) var(--ease-out),
+      --theme-accent var(--duration-theme) var(--ease-out);
+  }
+
+  /*
+   * 3. Hover: links and project items go from gray to the strong color, and
+   * nothing moves. Mixing the theme colors, instead of transitioning `color`,
+   * keeps hovered text in sync while the theme colors animate.
+   */
   .hover-strong {
     transition: --hover-mix var(--duration-hover) var(--ease-out);
   }
@@ -27,5 +58,12 @@
 
   .hover-strong-text {
     color: color-mix(in oklab, var(--theme-fg) var(--hover-mix), var(--theme-fg-muted));
+  }
+
+  /* Reduced motion: nothing moves, scales or blurs. Color changes remain. */
+  @media (prefers-reduced-motion: reduce) {
+    .icon-swap > * {
+      transition: none;
+    }
   }
 }

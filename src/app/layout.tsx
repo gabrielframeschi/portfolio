@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto_Serif } from "next/font/google";
+import { ThemeScript } from "@/components/theme-script";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -39,7 +40,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={fontVariables}>
+    // ThemeScript sets data-theme on <html> before React hydrates.
+    <html lang="en" className={fontVariables} suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body className="bg-bg font-sans text-body text-fg-muted antialiased">{children}</body>
     </html>
   );
