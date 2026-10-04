@@ -79,6 +79,16 @@
     animation-delay: calc(var(--enter-index, 0) * var(--stagger-enter));
   }
 
+  /* 5. Press: the theme toggle sinks slightly while pressed and snaps back. */
+  .press {
+    transition: transform var(--duration-release) var(--ease-out);
+  }
+
+  .press:active {
+    transform: scale(var(--press-scale));
+    transition-duration: var(--duration-press);
+  }
+
   /* Reduced motion: nothing moves, scales or blurs. Opacity and color remain. */
   @media (prefers-reduced-motion: reduce) {
     .icon-swap > * {
@@ -93,6 +103,10 @@
 
     .enter {
       animation: none;
+    }
+
+    .press:active {
+      transform: none;
     }
   }
 }

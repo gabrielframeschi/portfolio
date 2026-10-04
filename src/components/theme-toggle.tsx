@@ -45,7 +45,7 @@ export function ThemeToggle({ label }: { label: string }) {
       aria-label={label}
       aria-pressed={theme === null ? undefined : theme === "dark"}
       onClick={toggle}
-      className="theme-toggle relative grid size-[1lh] shrink-0 cursor-pointer place-items-center after:absolute after:-inset-2"
+      className="theme-toggle press relative grid size-[1lh] shrink-0 cursor-pointer place-items-center after:absolute after:-inset-2"
     >
       <span className="icon-swap" aria-hidden="true">
         <SunIcon />

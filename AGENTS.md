@@ -37,9 +37,10 @@ Gabriel Frameschi's personal website. It starts minimal and grows only when ther
   1. Theme toggle: the sun and the moon swap in place with opacity, scale and a slight blur.
   2. Theme change: all colors change together in a short transition, with no flash and no expanding circle.
   3. Hover on links and project items: the text goes from gray to the strong color. Nothing moves.
-  4. Page entrance: the blocks rise slightly into place, one right after another, fast.
+  4. Page entrance: the blocks rise slightly into place, one right after another, fast. They stay visible from the first frame.
+  5. Press on the theme toggle: it sinks slightly while pressed and snaps back.
 - Ask before adding any other movement.
-- Respect `prefers-reduced-motion`. Prefer `transform` and `opacity`.
+- Respect `prefers-reduced-motion`: drop movement, keep opacity and color changes. Prefer `transform` and `opacity`.
 
 ## Theme
 

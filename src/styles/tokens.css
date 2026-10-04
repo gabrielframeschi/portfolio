@@ -136,6 +136,10 @@
   --stagger-enter: 40ms;
   --distance-enter: 6px;
 
+  --duration-press: 160ms; /* slower going in: pressing is deliberate */
+  --duration-release: 100ms; /* faster coming back: the response snaps */
+  --press-scale: 0.97;
+
   --icon-swap-scale: 0.9;
   --icon-swap-blur: 2px;
 }
