@@ -1,0 +1,31 @@
+/*
+ * Motion: the closed list of approved movements. Add nothing here without
+ * approval, and take every value from tokens.css.
+ */
+
+/*
+ * Hover: links and project items go from gray to the strong color. Nothing
+ * moves. Mixing the theme colors, instead of transitioning `color`, keeps
+ * hovered text in sync while the theme colors animate.
+ */
+@property --hover-mix {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+@layer components {
+  .hover-strong {
+    transition: --hover-mix var(--duration-hover) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .hover-strong:hover {
+      --hover-mix: 100%;
+    }
+  }
+
+  .hover-strong-text {
+    color: color-mix(in oklab, var(--theme-fg) var(--hover-mix), var(--theme-fg-muted));
+  }
+}
