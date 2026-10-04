@@ -79,10 +79,16 @@
     animation-delay: calc(var(--enter-index, 0) * var(--stagger-enter));
   }
 
-  /* Reduced motion: nothing moves, scales or blurs. Color changes remain. */
+  /* Reduced motion: nothing moves, scales or blurs. Opacity and color remain. */
   @media (prefers-reduced-motion: reduce) {
     .icon-swap > * {
-      transition: none;
+      transition: opacity var(--duration-icon) var(--ease-out);
+    }
+
+    :root[data-theme="light"] .icon-swap > [data-icon="moon"],
+    :root[data-theme="dark"] .icon-swap > [data-icon="sun"] {
+      filter: none;
+      transform: none;
     }
 
     .enter {
