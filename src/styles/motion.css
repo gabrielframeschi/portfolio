@@ -10,6 +10,13 @@
   initial-value: 0%;
 }
 
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--distance-enter));
+  }
+}
+
 @layer components {
   /* 1. Theme toggle: the sun and the moon swap places in the same slot. */
   .icon-swap {
@@ -60,10 +67,23 @@
     color: color-mix(in oklab, var(--theme-fg) var(--hover-mix), var(--theme-fg-muted));
   }
 
+  /*
+   * 4. Page entrance: the blocks rise slightly into place, one right after
+   * another. Set --enter-index on each block to order them.
+   */
+  .enter {
+    animation: enter var(--duration-enter) var(--ease-out) both;
+    animation-delay: calc(var(--enter-index, 0) * var(--stagger-enter));
+  }
+
   /* Reduced motion: nothing moves, scales or blurs. Color changes remain. */
   @media (prefers-reduced-motion: reduce) {
     .icon-swap > * {
       transition: none;
+    }
+
+    .enter {
+      animation: none;
     }
   }
 }
