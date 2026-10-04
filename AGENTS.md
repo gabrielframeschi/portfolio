@@ -18,7 +18,7 @@ Gabriel Frameschi's personal website. It starts minimal and grows only when ther
 - All copy and links live in `src/content/site.ts`.
 - Never invent content. New text goes in as a draft and is flagged for review.
 - No empty sections and no "coming soon". A section exists only once it has real content.
-- No images in this version: no photos, illustrations, favicon or share images.
+- No images in this version besides the favicon set in `public/`: no photos, illustrations or share images.
 - A project's visuals belong to the project, not to the personal brand.
 
 ## Design tokens
@@ -27,7 +27,7 @@ Gabriel Frameschi's personal website. It starts minimal and grows only when ther
 - One font size. Hierarchy comes from color (`text-fg` for what matters, `text-fg-muted` for the rest) and from weight, never from more sizes or fonts.
 - Geist for almost everything. Roboto Serif only as a sparing highlight, today only the name. Geist Mono for monospaced text.
 - No italics.
-- Green is the only accent, and it appears only in the focus ring and in text selection.
+- Green is the only accent, and it appears only in the focus ring, in text selection and in the favicon.
 - Space is the main material: never fill space just because it is empty.
 
 ## Motion
@@ -45,6 +45,8 @@ Gabriel Frameschi's personal website. It starts minimal and grows only when ther
 ## Theme
 
 Light and dark. The site follows the visitor's system preference, and the toggle overrides it. `src/lib/theme.ts` applies the theme before the first paint, so the page never flashes.
+
+The favicon follows the theme chosen on the site: `public/icon.svg` for the light theme, which is also the default, and `public/icon-dark-theme.svg` for the dark one. `favicon.ico` (for browsers without SVG favicons) and `apple-touch-icon.png` are fixed and match the light theme icon. The icon is a squircle (superellipse, n = 4) with a frame drawn on a 4 × 4 grid of 2-unit modules, so it stays sharp at 16 and 32 px.
 
 ## Commits
 

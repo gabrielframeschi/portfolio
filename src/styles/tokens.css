@@ -42,7 +42,11 @@
   --spacing-inline: var(--layout-inline);
 }
 
-/* Palette. Contrast ratios are measured against each theme's background. */
+/*
+ * Palette. Contrast ratios are measured against each theme's background.
+ * The favicon files in public/ repeat the fg and accent values: update them
+ * together.
+ */
 :root {
   --light-bg: #ffffff;
   --light-fg: #171717;

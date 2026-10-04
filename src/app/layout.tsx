@@ -39,6 +39,13 @@ export const metadata: Metadata = {
     title: site.name,
     description: site.role,
   },
+  // The theme-aware SVG favicon is added by ThemeScript. The ICO covers
+  // browsers without SVG favicons; sizes keeps Chrome from preferring it.
+  // The touch icon is an opaque square: iOS rounds the corners itself.
+  icons: {
+    icon: [{ url: "/favicon.ico", sizes: "32x32" }],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

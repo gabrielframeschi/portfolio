@@ -24,8 +24,9 @@ export function ThemeToggle({ label }: { label: string }) {
   const theme = useSyncExternalStore(subscribe, getAppliedTheme, () => null);
 
   useLayoutEffect(() => {
-    // In development, React's remount clears the attribute the head script set.
-    if (!getAppliedTheme()) applyTheme(getSavedTheme() ?? getSystemTheme());
+    // Re-apply on mount: in development, React's remount clears the attribute
+    // the head script set, and this keeps the favicon in sync with it.
+    applyTheme(getAppliedTheme() ?? getSavedTheme() ?? getSystemTheme());
 
     // Without a saved choice, keep following the system while the page is open.
     return onSystemThemeChange(() => {
