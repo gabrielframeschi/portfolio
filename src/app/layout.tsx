@@ -9,8 +9,11 @@ const geist = Geist({
   variable: "--font-geist",
 });
 
+// Only the medium weight the name uses: 28 KB instead of 66 KB for the
+// variable font.
 const robotoSerif = Roboto_Serif({
   subsets: ["latin"],
+  weight: "500",
   variable: "--font-roboto-serif",
 });
 
