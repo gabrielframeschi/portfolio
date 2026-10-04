@@ -1,0 +1,141 @@
+/*
+ * Design tokens: the single source for color, type, spacing and motion.
+ * Every value is provisional. Tune it here, never in components.
+ */
+
+/*
+ * Tailwind generates utilities only from these tokens. Its default color,
+ * type and motion scales are cleared, so components cannot drift from them.
+ */
+@theme {
+  --color-*: initial;
+  --font-*: initial;
+  --font-weight-*: initial;
+  --text-*: initial;
+  --ease-*: initial;
+  --animate-*: initial;
+
+  /* Type: a single size. Hierarchy comes from color and weight. */
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-roboto-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+
+  /* Layout */
+  --breakpoint-sm: 40rem;
+  --container-content: 40rem;
+}
+
+/* Values that change with the theme or the viewport resolve at runtime. */
+@theme inline {
+  --color-bg: var(--theme-bg);
+  --color-fg: var(--theme-fg);
+  --color-fg-muted: var(--theme-fg-muted);
+  --color-accent: var(--theme-accent);
+
+  --spacing-gutter: var(--layout-gutter);
+  --spacing-page: var(--layout-page);
+  --spacing-section: var(--layout-section);
+  --spacing-inline: var(--layout-inline);
+}
+
+/* Palette. Contrast ratios are measured against each theme's background. */
+:root {
+  --light-bg: #ffffff;
+  --light-fg: #171717;
+  --light-fg-muted: #737373; /* 4.7:1 */
+  --light-accent: #1f5c3a; /* 7.9:1 */
+
+  --dark-bg: #0a0a0a;
+  --dark-fg: #ededed;
+  --dark-fg-muted: #a1a1a1; /* 7.7:1 */
+  --dark-accent: #3dff8a; /* 15:1 */
+}
+
+/*
+ * Active theme. The colors are registered as typed properties so a theme
+ * change can animate all of them together.
+ */
+@property --theme-bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --theme-fg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --theme-fg-muted {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --theme-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+:root {
+  color-scheme: light;
+  --theme-bg: var(--light-bg);
+  --theme-fg: var(--light-fg);
+  --theme-fg-muted: var(--light-fg-muted);
+  --theme-accent: var(--light-accent);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --theme-bg: var(--dark-bg);
+  --theme-fg: var(--dark-fg);
+  --theme-fg-muted: var(--dark-fg-muted);
+  --theme-accent: var(--dark-accent);
+}
+
+/* Without JavaScript there is no data-theme, so follow the system. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --theme-bg: var(--dark-bg);
+    --theme-fg: var(--dark-fg);
+    --theme-fg-muted: var(--dark-fg-muted);
+    --theme-accent: var(--dark-accent);
+  }
+}
+
+/* Spacing. Space is the main material: keep it generous. */
+:root {
+  --layout-gutter: 1.5rem;
+  --layout-page: 6rem;
+  --layout-section: 3rem;
+  --layout-inline: 1.25rem;
+
+  @variant sm {
+    --layout-gutter: 2rem;
+    --layout-page: 9rem;
+    --layout-section: 4rem;
+  }
+}
+
+/* Motion. Fast and natural: if a movement is consciously noticed, it is too much. */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: ease-in-out;
+
+  --duration-hover: 150ms;
+  --duration-theme: 200ms;
+  --duration-icon: 250ms;
+  --duration-enter: 350ms;
+  --stagger-enter: 40ms;
+  --distance-enter: 6px;
+
+  --icon-swap-scale: 0.25;
+  --icon-swap-blur: 2px;
+}

@@ -1,0 +1,25 @@
+@layer base {
+  html {
+    font-synthesis: none;
+  }
+
+  /* The brand uses no italics, so neutralize the browser's italic defaults. */
+  address,
+  cite,
+  dfn,
+  em,
+  i,
+  var {
+    font-style: normal;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--theme-accent);
+    outline-offset: 4px;
+  }
+
+  ::selection {
+    background-color: var(--theme-accent);
+    color: var(--theme-bg);
+  }
+}

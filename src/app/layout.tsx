@@ -1,5 +1,26 @@
 import type { Metadata } from "next";
+import { Geist, Geist_Mono, Roboto_Serif } from "next/font/google";
 import "./globals.css";
+
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+});
+
+const robotoSerif = Roboto_Serif({
+  subsets: ["latin"],
+  variable: "--font-roboto-serif",
+});
+
+// Declared for monospaced text but not preloaded, so browsers only download
+// it once something on the page uses it.
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  preload: false,
+});
+
+const fontVariables = [geist.variable, robotoSerif.variable, geistMono.variable].join(" ");
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -8,8 +29,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className={fontVariables}>
+      <body className="bg-bg font-sans text-body text-fg-muted antialiased">{children}</body>
     </html>
   );
 }
