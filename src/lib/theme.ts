@@ -43,6 +43,20 @@ function setThemeIcon(theme: Theme) {
   link.href = ICONS[theme];
 }
 
+/**
+ * Re-applies the theme on mount and, without a saved choice, keeps following
+ * the system while the page is open. Returns the cleanup.
+ */
+export function syncTheme() {
+  // In development, React's remount clears the attribute the head script
+  // set. Re-applying it also keeps the favicon in sync.
+  applyTheme(getAppliedTheme() ?? getSavedTheme() ?? getSystemTheme());
+
+  return onSystemThemeChange(() => {
+    if (!getSavedTheme()) applyTheme(getSystemTheme());
+  });
+}
+
 export function getSystemTheme(): Theme {
   return window.matchMedia(DARK_QUERY).matches ? "dark" : "light";
 }

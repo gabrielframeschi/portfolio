@@ -1,14 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useSyncExternalStore } from "react";
-import {
-  applyTheme,
-  getAppliedTheme,
-  getSavedTheme,
-  getSystemTheme,
-  onSystemThemeChange,
-  saveTheme,
-} from "@/lib/theme";
+import { applyTheme, getAppliedTheme, saveTheme, syncTheme } from "@/lib/theme";
 
 // React only reads the theme from <html>, which the head script sets first.
 function subscribe(callback: () => void) {
@@ -23,16 +16,7 @@ function subscribe(callback: () => void) {
 export function ThemeToggle({ label }: { label: string }) {
   const theme = useSyncExternalStore(subscribe, getAppliedTheme, () => null);
 
-  useLayoutEffect(() => {
-    // Re-apply on mount: in development, React's remount clears the attribute
-    // the head script set, and this keeps the favicon in sync with it.
-    applyTheme(getAppliedTheme() ?? getSavedTheme() ?? getSystemTheme());
-
-    // Without a saved choice, keep following the system while the page is open.
-    return onSystemThemeChange(() => {
-      if (!getSavedTheme()) applyTheme(getSystemTheme());
-    });
-  }, []);
+  useLayoutEffect(() => syncTheme(), []);
 
   function toggle() {
     const next = theme === "dark" ? "light" : "dark";

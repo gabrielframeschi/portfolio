@@ -39,4 +39,16 @@ export const site = {
     title: "Page not found",
     backHome: "Back to home",
   },
+  // On screen the game shows only numbers, plus "Best" between games; the
+  // other labels only reach screen readers.
+  game: {
+    title: "Play",
+    controls:
+      "Aim with the mouse, the arrow keys, A and D, or by touch. Click, press Space or tap to fire, and hold to keep firing. Escape pauses.",
+    score: "Score",
+    multiplier: "Multiplier",
+    best: "Best",
+    lives: "Lives",
+    gameOver: "Game over",
+  },
 };

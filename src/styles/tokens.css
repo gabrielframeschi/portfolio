@@ -57,6 +57,10 @@
   --dark-fg: #ededed;
   --dark-fg-muted: #a1a1a1; /* 7.7:1 */
   --dark-accent: #3dff8a; /* 15:1 */
+
+  /* The X-Wing's lasers in the game at /play, and nowhere else. */
+  --light-laser: #c62828; /* 5.6:1 */
+  --dark-laser: #ff4d4d; /* 6.1:1 */
 }
 
 /*
@@ -87,12 +91,19 @@
   initial-value: transparent;
 }
 
+@property --theme-laser {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
 :root {
   color-scheme: light;
   --theme-bg: var(--light-bg);
   --theme-fg: var(--light-fg);
   --theme-fg-muted: var(--light-fg-muted);
   --theme-accent: var(--light-accent);
+  --theme-laser: var(--light-laser);
 }
 
 :root[data-theme="dark"] {
@@ -101,6 +112,7 @@
   --theme-fg: var(--dark-fg);
   --theme-fg-muted: var(--dark-fg-muted);
   --theme-accent: var(--dark-accent);
+  --theme-laser: var(--dark-laser);
 }
 
 /* Without JavaScript there is no data-theme, so follow the system. */
@@ -111,6 +123,7 @@
     --theme-fg: var(--dark-fg);
     --theme-fg-muted: var(--dark-fg-muted);
     --theme-accent: var(--dark-accent);
+    --theme-laser: var(--dark-laser);
   }
 }
 
@@ -146,4 +159,13 @@
 
   --icon-swap-scale: 0.9;
   --icon-swap-blur: 2px;
+
+  /* The game at /play. Its gameplay values live in src/game/config.ts. */
+  --duration-pause: 200ms; /* the field dims when the game pauses */
+  --duration-resume: 100ms; /* and snaps back when play resumes */
+  --pause-opacity: 0.4;
+  --duration-hud: 200ms; /* a life, or the link home, fades out or back in */
+
+  /* On the home page, the X-Wing sits 5% further from the last link than the links sit apart. */
+  --x-wing-offset: calc(var(--layout-inline) * 0.05);
 }

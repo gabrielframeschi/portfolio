@@ -48,7 +48,8 @@
       --theme-bg var(--duration-theme) var(--ease-color),
       --theme-fg var(--duration-theme) var(--ease-color),
       --theme-fg-muted var(--duration-theme) var(--ease-color),
-      --theme-accent var(--duration-theme) var(--ease-color);
+      --theme-accent var(--duration-theme) var(--ease-color),
+      --theme-laser var(--duration-theme) var(--ease-color);
   }
 
   /*
