@@ -161,10 +161,13 @@
   --icon-swap-blur: 2px;
 
   /* The game at /play. Its gameplay values live in src/game/config.ts. */
-  --duration-pause: 200ms; /* the field dims when the game pauses */
-  --duration-resume: 100ms; /* and snaps back when play resumes */
+  --duration-pause: 200ms; /* the field dims when the game pauses, and the way out appears */
+  --duration-resume: 100ms; /* both snap back when play resumes */
   --pause-opacity: 0.4;
-  --duration-hud: 200ms; /* a life, or the link home, fades out or back in */
+  --duration-hud: 200ms; /* a life fades out, or back in for a new game */
+  --delay-life-loss: 500ms; /* a lost life holds red this long before it fades */
+  --duration-life-gain: 500ms; /* a life won back gathers from its pixels */
+  --ease-life-gain: ease-in-out; /* they drift in and settle into one shape */
 
   /* On the home page, the X-Wing sits 5% further from the last link than the links sit apart. */
   --x-wing-offset: calc(var(--layout-inline) * 0.05);

@@ -92,6 +92,8 @@ export function runGame(canvas: HTMLCanvasElement, onHud: (hud: Hud) => void) {
   let frame = requestAnimationFrame(loop);
 
   return () => {
+    // Leaving mid-game, as through the way out, keeps a record beaten so far.
+    if (world.score > world.best) saveBest(world.score);
     cancelAnimationFrame(frame);
     observer.disconnect();
     motion.removeEventListener("change", onMotionChange);
@@ -107,6 +109,7 @@ function isSameHud(a: Hud, b: Hud) {
     a.multiplier === b.multiplier &&
     a.best === b.best &&
     a.lives === b.lives &&
+    a.regained === b.regained &&
     a.resting === b.resting &&
     a.over === b.over &&
     a.paused === b.paused

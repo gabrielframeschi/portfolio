@@ -21,7 +21,7 @@ export default function Play() {
     <main className="fixed inset-0 touch-none overflow-hidden select-none">
       <h1 className="sr-only">{site.game.title}</h1>
       <p className="sr-only">{site.game.controls}</p>
-      <Game name={site.name} labels={site.game} />
+      <Game labels={site.game} />
     </main>
   );
 }

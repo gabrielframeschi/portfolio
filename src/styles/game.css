@@ -1,0 +1,42 @@
+/*
+ * The lives in the game's HUD, outside the closed list in motion.css. Every
+ * value comes from tokens.css.
+ */
+
+/* A life won back: its pixels gather from around it as they appear. */
+@keyframes life-gather {
+  from {
+    opacity: 0;
+    transform: translate(var(--gather-x), var(--gather-y));
+  }
+}
+
+@keyframes life-appear {
+  from {
+    opacity: 0;
+  }
+}
+
+@layer components {
+  .life {
+    transition: opacity var(--duration-hud) var(--ease-out);
+  }
+
+  /* A lost life turns red at once, holds it, then fades. */
+  .life[data-lost] {
+    fill: var(--theme-laser);
+    opacity: 0;
+    transition-delay: var(--delay-life-loss);
+  }
+
+  .life[data-gathering] > rect {
+    animation: life-gather var(--duration-life-gain) var(--ease-life-gain) backwards;
+  }
+
+  /* Reduced motion: the pixels only fade in, in place. */
+  @media (prefers-reduced-motion: reduce) {
+    .life[data-gathering] > rect {
+      animation-name: life-appear;
+    }
+  }
+}

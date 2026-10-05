@@ -39,8 +39,9 @@ export const site = {
     title: "Page not found",
     backHome: "Back to home",
   },
-  // On screen the game shows only numbers, plus "Best" once there is a
-  // record; the other labels only reach screen readers.
+  // On screen the game shows only numbers, "Best" once there is a record and
+  // "Exit" while paused or between games; the other labels only reach
+  // screen readers.
   game: {
     title: "Play",
     controls:
@@ -50,5 +51,6 @@ export const site = {
     best: "Best",
     lives: "Lives",
     gameOver: "Game over",
+    exit: "Exit",
   },
 };

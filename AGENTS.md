@@ -53,11 +53,12 @@ The favicon follows the theme chosen on the site: `public/icon.svg` for the ligh
 `/play` is a small arcade game: an X-Wing fixed at the center turns and fires at TIE fighters. The rules above apply, with these exceptions:
 
 - Way in: an easter egg, never an explicit link. A small pixel X-Wing with no visible label closes the links on the home page, with the same hover as the other links.
-- Way back: between games, the name links home in the bottom corner, as on the not-found page. It steps aside while playing.
+- Way back: while paused and between games, "Exit" with a left arrow sits at the bottom center and links home, with the same hover as the links on the home page. It steps aside while playing.
+- HUD: the score sits at the top center in the strong color, with the multiplier beside it. The best score sits at the top left and the lives at the top right, in the muted color. While paused, everything dims except the way out.
 - Pixel art: the ships are pixel grids in `src/game/sprites.ts`, rendered as SVG paths. The X-Wing turns; the TIEs stay upright on whole device pixels, so they stay crisp.
-- Color: the X-Wing's lasers are red (`--theme-laser`), and they are the only red on the site. Green stays out of the game.
-- Text: besides the name, the screen shows only the score, the multiplier and the best score, in Geist Mono at the one font size. The controls are described for screen readers only.
-- Motion: everything inside the canvas is gameplay and sits outside the closed list. Around it, the HUD uses the approved page entrance, the pause dims the field, and a lost life and the way back fade, all timed by tokens. With `prefers-reduced-motion`, explosions fade in place instead of flying apart, while play itself still moves.
+- Color: red (`--theme-laser`) is the game's one signal color: the X-Wing's lasers, a TIE hit that did not go down, and a life just lost. It appears nowhere else on the site. Green stays out of the game.
+- Text: the screen shows only the score, the multiplier, the best score and the way out, in Geist Mono at the one font size. The controls are described for screen readers only.
+- Motion: everything inside the canvas is gameplay and sits outside the closed list. Around it, the HUD uses the approved page entrance and the motion in `src/styles/game.css`: the pause dims the field, a lost life turns red for a moment and fades, and a life won back gathers from its own pixels, all timed by tokens. With `prefers-reduced-motion`, explosions fade in place instead of flying apart and a life won back only fades in, while play itself still moves.
 - Values: gameplay values (speeds, timings, sprite sizes, difficulty) live in `src/game/config.ts`. Colors still come from `tokens.css`, and the canvas reads them on every frame so it follows theme changes.
 - Code: the engine in `src/game/` is plain TypeScript with no React. `src/components/game.tsx` mounts it and draws the HUD.
 

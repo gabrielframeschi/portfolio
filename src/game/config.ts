@@ -95,9 +95,10 @@ export const config = {
 
   /**
    * The lives in the corner: small X-Wings at whole CSS pixels per sprite
-   * pixel, so they stay crisp, with a gap between them in sprite pixels.
+   * pixel, so they stay crisp, with a gap between them in sprite pixels. A
+   * life won back gathers from pixels that start this far out.
    */
-  lifeIcons: { pixel: 2, gap: 3 },
+  lifeIcons: { pixel: 2, gap: 3, gather: { from: 4, to: 8 } },
 
   /** From the last crash until the ship is back for a new game. */
   gameOver: { delay: 1.6, fade: 0.5 },

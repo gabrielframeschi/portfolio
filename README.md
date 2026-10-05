@@ -22,6 +22,7 @@ Project dates come from the GitHub API, which allows 60 anonymous requests per h
 - `src/content/site.ts`: all copy and links.
 - `src/styles/tokens.css`: design tokens for color, type, spacing and motion.
 - `src/styles/motion.css`: the approved movements.
+- `src/styles/game.css`: the motion of the game's lives.
 - `src/components/`: the page blocks, the theme toggle and the game's canvas and HUD.
 - `src/game/`: the game at `/play`: engine, pixel art and tuning (`config.ts`).
 - `src/lib/`: GitHub data and theme helpers.

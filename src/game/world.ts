@@ -61,6 +61,10 @@ export type World = {
   lives: number;
   /** Volleys in a row that hit something. */
   streak: number;
+  /** Lives won back since the page opened. It never resets, so each one is a new event. */
+  regained: number;
+  /** The number of lives right after the last one was won back. */
+  regainedTo: number;
   bolts: Bolt[];
   enemies: Enemy[];
   particles: Particle[];
@@ -73,6 +77,9 @@ export type Hud = {
   /** The record, shown at all times once there is a saved one. It climbs with a score that beats it. */
   best: number | null;
   lives: number;
+  /** Lives won back so far, and the count right after the last one: the HUD greets each one. */
+  regained: number;
+  regainedTo: number;
   /** Between games: before the first one, or once the last ship is down. */
   resting: boolean;
   over: boolean;
@@ -104,6 +111,8 @@ export function createWorld(field: Field, best: number): World {
     best,
     lives: config.lives,
     streak: 0,
+    regained: 0,
+    regainedTo: 0,
     bolts: [],
     enemies: [],
     particles: [],
@@ -136,6 +145,8 @@ export function getHud(world: World): Hud {
     multiplier: isInGame(world) ? multiplier(world) : 1,
     best: world.best > 0 ? Math.max(world.best, world.score) : null,
     lives: world.lives,
+    regained: world.regained,
+    regainedTo: world.regainedTo,
     resting,
     over: world.phase === "over",
     paused: world.paused,
@@ -309,8 +320,10 @@ function addScore(world: World, points: number) {
   const before = world.score;
   world.score += points;
   const every = config.extraLifeEvery;
-  if (Math.floor(world.score / every) > Math.floor(before / every)) {
-    world.lives = Math.min(config.lives, world.lives + 1);
+  if (Math.floor(world.score / every) > Math.floor(before / every) && world.lives < config.lives) {
+    world.lives += 1;
+    world.regained += 1;
+    world.regainedTo = world.lives;
   }
 }
 
