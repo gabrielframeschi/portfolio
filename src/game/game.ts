@@ -33,6 +33,21 @@ export function runGame(canvas: HTMLCanvasElement, onHud: (hud: Hud) => void) {
   motion.addEventListener("change", onMotionChange);
   onMotionChange();
 
+  // A game in another tab can set a higher record.
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === BEST_KEY) world.best = Math.max(world.best, loadBest());
+  };
+  window.addEventListener("storage", onStorage);
+
+  // A record beaten mid-game is saved when the page goes out of view, so
+  // closing the tab never loses it.
+  const onHide = () => {
+    if (document.visibilityState === "hidden" && world.score > world.best) {
+      world.best = saveBest(world.score);
+    }
+  };
+  document.addEventListener("visibilitychange", onHide);
+
   const { input, endFrame, dispose } = listen(canvas, {
     onPress: () => {
       world.paused = false;
@@ -46,7 +61,9 @@ export function runGame(canvas: HTMLCanvasElement, onHud: (hud: Hud) => void) {
 
   const style = getComputedStyle(document.documentElement);
   const palette: Palette = { fg: "", laser: "" };
-  let shown: Hud | null = null;
+  // Show the saved record at once, without waiting for the first frame.
+  let shown = getHud(world);
+  onHud(shown);
   let last = performance.now();
 
   const loop = (now: number) => {
@@ -58,14 +75,14 @@ export function runGame(canvas: HTMLCanvasElement, onHud: (hud: Hud) => void) {
     const wasOver = world.phase === "over";
     update(world, input, dt);
     endFrame();
-    if (!wasOver && world.phase === "over") saveBest(world.best);
+    if (!wasOver && world.phase === "over") world.best = saveBest(world.best);
 
     palette.fg = style.getPropertyValue("--theme-fg");
     palette.laser = style.getPropertyValue("--theme-laser");
     render(ctx, world, palette, scale);
 
     const hud = getHud(world);
-    if (!shown || !isSameHud(shown, hud)) {
+    if (!isSameHud(shown, hud)) {
       shown = hud;
       onHud(hud);
     }
@@ -78,6 +95,8 @@ export function runGame(canvas: HTMLCanvasElement, onHud: (hud: Hud) => void) {
     cancelAnimationFrame(frame);
     observer.disconnect();
     motion.removeEventListener("change", onMotionChange);
+    window.removeEventListener("storage", onStorage);
+    document.removeEventListener("visibilitychange", onHide);
     dispose();
   };
 }
@@ -103,11 +122,14 @@ function loadBest() {
   }
 }
 
+/** Saves the record and returns it. Another tab may have saved a higher one meanwhile. */
 function saveBest(best: number) {
+  const record = Math.max(best, loadBest());
   try {
-    localStorage.setItem(BEST_KEY, String(best));
+    localStorage.setItem(BEST_KEY, String(record));
   } catch {
     // Storage can be unavailable, as in some private modes. The best score
     // then lasts until the page is closed.
   }
+  return record;
 }

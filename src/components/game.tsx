@@ -85,7 +85,14 @@ export function Game({ name, labels }: GameProps) {
       </p>
 
       <p aria-live="polite" className="sr-only">
-        {hud.over && `${labels.gameOver}. ${labels.score} ${hud.score}. ${labels.best} ${hud.best}.`}
+        {hud.over &&
+          [
+            `${labels.gameOver}.`,
+            `${labels.score} ${hud.score}.`,
+            hud.best !== null && `${labels.best} ${hud.best}.`,
+          ]
+            .filter(Boolean)
+            .join(" ")}
       </p>
     </div>
   );

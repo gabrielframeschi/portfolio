@@ -39,8 +39,8 @@ export const site = {
     title: "Page not found",
     backHome: "Back to home",
   },
-  // On screen the game shows only numbers, plus "Best" between games; the
-  // other labels only reach screen readers.
+  // On screen the game shows only numbers, plus "Best" once there is a
+  // record; the other labels only reach screen readers.
   game: {
     title: "Play",
     controls:

@@ -61,8 +61,6 @@ export type World = {
   lives: number;
   /** Volleys in a row that hit something. */
   streak: number;
-  /** Whether a game has been played since the page opened. */
-  played: boolean;
   bolts: Bolt[];
   enemies: Enemy[];
   particles: Particle[];
@@ -72,7 +70,7 @@ export type World = {
 export type Hud = {
   score: number;
   multiplier: number;
-  /** Shown only between games. */
+  /** The record, shown at all times once there is a saved one. It climbs with a score that beats it. */
   best: number | null;
   lives: number;
   /** Between games: before the first one, or once the last ship is down. */
@@ -106,7 +104,6 @@ export function createWorld(field: Field, best: number): World {
     best,
     lives: config.lives,
     streak: 0,
-    played: false,
     bolts: [],
     enemies: [],
     particles: [],
@@ -137,7 +134,7 @@ export function getHud(world: World): Hud {
   return {
     score: world.score,
     multiplier: isInGame(world) ? multiplier(world) : 1,
-    best: world.played && resting ? world.best : null,
+    best: world.best > 0 ? Math.max(world.best, world.score) : null,
     lives: world.lives,
     resting,
     over: world.phase === "over",
@@ -215,7 +212,6 @@ function volley(world: World) {
 
 function start(world: World) {
   world.phase = "playing";
-  world.played = true;
   world.score = 0;
   world.streak = 0;
   world.lives = config.lives;
